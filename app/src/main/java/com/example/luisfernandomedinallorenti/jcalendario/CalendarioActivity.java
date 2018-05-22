@@ -19,7 +19,7 @@ public class CalendarioActivity extends AppCompatActivity implements CalendarVie
     }
 
     @Override
-    public void onSelectedDayChange(CalendarView calendarView, int year, int month, int dayOfMonth) {
+    public void onSelectedDayChange(CalendarView calendarView, final int year, final int month, final int dayOfMonth) {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         CharSequence []items=new CharSequence[3];
         items[0]="Agregar Evento";
@@ -32,9 +32,21 @@ public class CalendarioActivity extends AppCompatActivity implements CalendarVie
                     public void onClick(DialogInterface dialog, int i) {
                         if (i==0){
                             Intent intent=new Intent(getApplication(),AddEvento.class);
+                            Bundle bundle=new Bundle();
+                            bundle.putInt("dayOfMoth",dayOfMonth);
+                            bundle.putInt("moth",month);
+                            bundle.putInt("year",year);
+                            intent.putExtras(bundle);
                             startActivity(intent);
                         }else if (i==1){
-
+                            //Ver Eventos
+                            Intent intent=new Intent(getApplication(),ViewEventos.class);
+                            Bundle bundle=new Bundle();
+                            bundle.putInt("dayOfMoth",dayOfMonth);
+                            bundle.putInt("moth",month);
+                            bundle.putInt("year",year);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         }else{
                             return;
                         }
